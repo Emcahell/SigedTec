@@ -28,7 +28,7 @@ class RegistrationTest extends TestCase
 
         $this->assertAuthenticated();
         $this->assertSame('solicitante', User::firstWhere('email', 'test@example.com')?->role?->value);
-        $response->assertRedirect('/solicitudes');
+        $response->assertRedirect('/requests/mine');
     }
 
     public function test_registration_honours_the_selected_role(): void
