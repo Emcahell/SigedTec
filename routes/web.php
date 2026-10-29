@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,11 +11,15 @@ Route::get('/', function () {
 
 /*
  * Rutas administrativas: reservadas al rol admin (Soporte Técnico).
+ * Incluye el dashboard y el CRUD de categorías y equipos.
  */
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::resource('categories', CategoryController::class)->except(['show']);
+    Route::resource('equipments', EquipmentController::class);
 });
 
 /*
