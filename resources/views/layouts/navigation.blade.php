@@ -18,6 +18,14 @@
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('equipments.index')" :active="request()->routeIs('equipments.*')">
+                            {{ __('Equipos') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                            {{ __('Categorías') }}
+                        </x-nav-link>
                     @endif
 
                     @if (Auth::user()->isSolicitante())
@@ -79,6 +87,14 @@
             @if (Auth::user()->isAdmin())
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('equipments.index')" :active="request()->routeIs('equipments.*')">
+                    {{ __('Equipos') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                    {{ __('Categorías') }}
                 </x-responsive-nav-link>
             @endif
 
