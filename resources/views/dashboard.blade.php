@@ -28,38 +28,29 @@
     </head>
     <body class="font-sans antialiased bg-gray-100">
 
-    <div class="min-h-screen">
+    <x-app-layout>
 
         <!-- Header -->
-        <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between">
-                    <h2 class="font-semibold text-xl text-blue-900 leading-tight">
-                        {{ __('Dashboard') }}
-                    </h2>
-                    <div class="flex items-center gap-3">
-                        @if (isset($disponibles) && isset($asignados) && isset($mantenimiento))
-                            <span class="text-sm text-blue-600">
-                                {{ __('Solicitudes') }}: 
-                                <span id="pendientes-badge" class="font-medium text-blue-700">
-                                    {{ isset($solicitudes_pendientes) ? $solicitudes_pendientes : '0' }}
-                                </span>
-                            </span>
-                        @else
-                            <span class="text-sm text-blue-600">
-                                {{ __('Solicitudes') }}: 
-                                <span id="pendientes-badge" class="font-medium text-blue-700">0</span>
-                            </span>
-                        @endif
+        <x-slot name="header">
+            <div class="flex items-center justify-between">
+                <h2 class="font-semibold text-xl text-blue-900 leading-tight">
+                    {{ __('Dashboard') }}
+                </h2>
+                <div class="flex items-center gap-3">
+                    <span class="text-sm text-blue-600">
+                        {{ __('Solicitudes') }}: 
+                        <span id="pendientes-badge" class="font-medium text-blue-700">
+                            {{ isset($solicitudes_pendientes) ? $solicitudes_pendientes : '0' }}
+                        </span>
+                    </span>
 
-                        <a href="{{ route('requests.index') }}"
-                           class="inline-flex items-center px-3 py-1.5 border border-blue-300 rounded-md font-semibold text-xs text-blue-700 uppercase tracking-widest hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
-                            {{ __('Ver todas') }}
-                        </a>
-                    </div>
+                    <a href="{{ route('requests.index') }}"
+                       class="inline-flex items-center px-3 py-1.5 border border-blue-300 rounded-md font-semibold text-xs text-blue-700 uppercase tracking-widest hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                        {{ __('Ver todas') }}
+                    </a>
                 </div>
             </div>
-        </header>
+        </x-slot>
 
         <main class="py-12">
 
@@ -90,7 +81,7 @@
                             </div>
                             <div class="mt-2">
                                 <svg class="w-6 h-6 text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path class="stroke-width-2" stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm0 0v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm0 0v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm0 0v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm0 0v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm-9.17-2.45a8.987 8.987 0 01-.11-1.53c-.34.03-.68.06-.99.1a7.96 7.96 0 01-1.81-.277A8.033 8.033 0 0112 2.072a8.026 8.026 0 01-6.073 4.875L12 21z"/>
+                                    <path class="stroke-width-2" stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm0 0v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm0 0v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm0 0v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm-9.17-2.45a8.987 8.987 0 01-.11-1.53c-.34.03-.68.06-.99.1a7.96 7.96 0 01-1.81-.277A8.033 8.033 0 0112 2.072a8.026 8.026 0 01-6.073 4.875L12 21z"/>
                                 </svg>
                             </div>
                         </div>
@@ -158,7 +149,7 @@
 
         </main>
 
-    </div>
+    </x-app-layout>
 
     <script>
         // Initialize chart when page loads

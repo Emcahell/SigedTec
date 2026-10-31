@@ -7,7 +7,7 @@ use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 /*
@@ -17,7 +17,16 @@ Route::get('/', function () {
  */
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $stats = [
+            'disponibles' => App\Enums\EquipmentStatus::Disponible->value
+                ? App\Models\Equipment::where('estado', App\Enums\EquipmentStatus::Disponible->value)->count()
+                : 0,
+            'asignados' => App\Models\Equipment::where('estado', App\Enums\EquipmentStatus::Asignado->value)->count(),
+            'mantenimiento' => App\Models\Equipment::where('estado', App\Enums\EquipmentStatus::Mantenimiento->value)->count(),
+            'total' => App\Models\Equipment::count(),
+            'solicitudes_pendientes' => App\Models\Request::where('status', App\Models\Request::PENDING_STATUS)->count(),
+        ];
+        return view('dashboard', $stats);
     })->name('dashboard');
 
     Route::resource('categories', CategoryController::class)->except(['show']);
@@ -34,10 +43,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         ->name('requests.reject');
     Route::post('/requests/{solicitud}/rechazar', [RequestController::class, 'reject'])
         ->name('requests.reject.store');
-});
-
-Route::middleware('auth')->group(function () {
-    Route::get('/stats', [DashboardController::class, 'statsJson'])->name('dashboard.stats');
 });
 
 /*
@@ -72,10 +77,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name(
         'profile.destroy',
     );
-});
-
-Route::middleware('auth')->group(function () {
-    Route::get('/reportes', [ReportController::class, 'index'])->name('reports.index');
 });
 
 require __DIR__.'/auth.php';
