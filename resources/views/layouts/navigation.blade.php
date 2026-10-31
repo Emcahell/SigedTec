@@ -18,10 +18,22 @@
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('equipments.index')" :active="request()->routeIs('equipments.*')">
+                            {{ __('Equipos') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                            {{ __('Categorías') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('requests.index')" :active="request()->routeIs('requests.*')">
+                            {{ __('Solicitudes') }}
+                        </x-nav-link>
                     @endif
 
                     @if (Auth::user()->isSolicitante())
-                        <x-nav-link :href="route('solicitudes.index')" :active="request()->routeIs('solicitudes.*')">
+                        <x-nav-link :href="route('requests.mine')" :active="request()->routeIs('requests.mine', 'requests.create', 'requests.show')">
                             {{ __('Mis Solicitudes') }}
                         </x-nav-link>
                     @endif
@@ -80,10 +92,22 @@
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('equipments.index')" :active="request()->routeIs('equipments.*')">
+                    {{ __('Equipos') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                    {{ __('Categorías') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('requests.index')" :active="request()->routeIs('requests.*')">
+                    {{ __('Solicitudes') }}
+                </x-responsive-nav-link>
             @endif
 
             @if (Auth::user()->isSolicitante())
-                <x-responsive-nav-link :href="route('solicitudes.index')" :active="request()->routeIs('solicitudes.*')">
+                <x-responsive-nav-link :href="route('requests.mine')" :active="request()->routeIs('requests.mine', 'requests.create', 'requests.show')">
                     {{ __('Mis Solicitudes') }}
                 </x-responsive-nav-link>
             @endif

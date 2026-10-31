@@ -31,17 +31,25 @@ class RoleAccessTest extends TestCase
             ->assertSee('Acceso Denegado');
     }
 
-    public function test_solicitante_can_access_the_requests_screen(): void
+    public function test_solicitante_can_access_their_requests_screen(): void
     {
         $this->actingAs(User::factory()->solicitante()->create())
-            ->get('/solicitudes')
+            ->get('/requests/mine')
             ->assertOk();
     }
 
-    public function test_admin_is_denied_access_to_the_requests_screen(): void
+    public function test_admin_is_denied_access_to_the_requester_screens(): void
     {
         $this->actingAs(User::factory()->admin()->create())
-            ->get('/solicitudes')
+            ->get('/requests/mine')
+            ->assertForbidden()
+            ->assertSee('Acceso Denegado');
+    }
+
+    public function test_solicitante_is_denied_access_to_request_management(): void
+    {
+        $this->actingAs(User::factory()->solicitante()->create())
+            ->get('/requests')
             ->assertForbidden()
             ->assertSee('Acceso Denegado');
     }

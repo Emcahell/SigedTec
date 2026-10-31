@@ -25,7 +25,7 @@ enum UserRole: string
     {
         return match ($this) {
             self::Admin => '/dashboard',
-            self::Solicitante => '/solicitudes',
+            self::Solicitante => '/requests/mine',
         };
     }
 }
