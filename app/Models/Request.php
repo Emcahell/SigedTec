@@ -12,6 +12,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Request extends Model
 {
     /**
+     * Request status constant for 'pending'.
+     */
+    public const PENDING_STATUS = 'pendiente';
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
