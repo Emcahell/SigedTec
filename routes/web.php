@@ -36,6 +36,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         ->name('requests.reject.store');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/stats', [DashboardController::class, 'statsJson'])->name('dashboard.stats');
+});
+
 /*
  * Rutas del solicitante (Jefe de Oficina): creación y seguimiento
  * de sus propias solicitudes.
@@ -68,6 +72,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name(
         'profile.destroy',
     );
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/reportes', [ReportController::class, 'index'])->name('reports.index');
 });
 
 require __DIR__.'/auth.php';
