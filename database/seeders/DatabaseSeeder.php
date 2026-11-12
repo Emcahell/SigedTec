@@ -10,14 +10,14 @@ class DatabaseSeeder extends Seeder
     use WithoutModelEvents;
 
     /**
-     * Seed the application's database.
+     * Seed the application's database with the administrator account only.
+     * Categories, equipment and requester accounts are managed from the
+     * administration panel.
      */
     public function run(): void
     {
         $this->call([
             UserSeeder::class,
-            CategorySeeder::class,
-            EquipmentSeeder::class,
         ]);
     }
 }

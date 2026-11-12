@@ -76,9 +76,9 @@ APP_URL=http://localhost:8000
 # - admin: Soporte Técnico, acceso a dashboard y CRUD
 # - solicitante: Jefe de Oficina, acceso a sus solicitudes
 
-# Login de prueba (creados por DatabaseSeeder)
-#   admin: admin@sistema.test / password → rol: admin, home: /dashboard
-#   solicitante: solicitante@sistema.test / password → rol: solicitante, home: /requests/mine
+# Login (creado por DatabaseSeeder)
+#   admin: admin@sigedtec.com / password → rol: admin, home: /dashboard
+#   Los usuarios solicitantes son creados por el administrador desde /users
 ```
 
 ## Comandos de migración y seeders
@@ -107,21 +107,21 @@ php artisan make:factory NombreFactory
 ## Credenciales de prueba
 
 ### Usuario Administrador (Soporte Técnico)
-- **Email:** `admin@sistema.test`
+- **Email:** `admin@sigedtec.com`
 - **Password:** `password`
 - **Rol:** `admin`
-- **Permisos:** Dashboard, CRUD categorías/equipos, gestión de solicitudes (aprobar/rechazar)
+- **Permisos:** Dashboard, CRUD categorías/equipos, gestión de solicitudes (aprobar/rechazar),
+  registro de usuarios solicitantes
 
 ### Usuario Solicitante (Jefe de Oficina)
-- **Email:** `solicitante@sistema.test`
-- **Password:** `password`
-- **Rol:** `solicitante`
-- **Permisos:** Crear y ver sus propias solicitudes (`/requests/mine`)
+El registro público está deshabilitado. El administrador crea las cuentas de los
+solicitantes en **Usuarios → Nuevo solicitante**, indicando nombre, correo y la
+contraseña con la que iniciarán sesión. Cada usuario creado recibe el rol
+`solicitante` y accede a `/requests/mine`.
 
-### Cuentas adicionales (seeders)
-- Se crean 3 categorías: **Laptops**, **Monitores**, **Impresoras**
-- Se crean 20 equipos con códigos `BI-2026-0001` a `BI-2026-0020`
-- Estados de equipos: 12 disponibles, 5 asignados, 3 en mantenimiento
+### Datos iniciales
+El seeder deja únicamente la cuenta del administrador; no se crean categorías,
+equipos ni solicitudes de ejemplo. Esos registros se cargan desde el sistema.
 
 ## Estructura de carpetas y arquitectura
 
@@ -149,7 +149,8 @@ database/
 └ resources/
     ├── views/
     │   ├── layouts/    # app-layout, navigation (role-aware)
-    │   ├── auth/       # login, register
+    │   ├── auth/       # login (registro público deshabilitado)
+    │   ├── users/      # listado y alta de solicitantes (admin)
     │   ├── dashboards/ # admin dashboard con tarjetas + Chart.js
     │   ├── equipments/ # CRUD completo con filtros
     │   ├── categories/ # CRUD categorías
@@ -190,8 +191,9 @@ vendor/bin/pint --dirty --format agent  # formateo de código
 - Modelo User con accessor/mutator `role`
 - Middleware `CheckRole` y registro en `Kernel.php`
 - Seeder 1 admin + 1 solicitante
-- Vistas de registro/login personalizadas
+- Login institucional (sin registro público)
 - Redirección por rol post-login
+- Alta de solicitantes desde el panel del administrador (fase posterior)
 
 ### Fase 2: CRUD categorías/equipos + módulo solicitudes
 - Migraciones `categories` y `equipments` (código patrimonial único, enum estado)

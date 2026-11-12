@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,21 +18,17 @@ Route::get('/', function () {
  * de solicitudes (aprobación y rechazo).
  */
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/dashboard', function () {
-        $stats = [
-            'disponibles' => App\Enums\EquipmentStatus::Disponible->value
-                ? App\Models\Equipment::where('estado', App\Enums\EquipmentStatus::Disponible->value)->count()
-                : 0,
-            'asignados' => App\Models\Equipment::where('estado', App\Enums\EquipmentStatus::Asignado->value)->count(),
-            'mantenimiento' => App\Models\Equipment::where('estado', App\Enums\EquipmentStatus::Mantenimiento->value)->count(),
-            'total' => App\Models\Equipment::count(),
-            'solicitudes_pendientes' => App\Models\Request::where('status', App\Models\Request::PENDING_STATUS)->count(),
-        ];
-        return view('dashboard', $stats);
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('categories', CategoryController::class)->except(['show']);
     Route::resource('equipments', EquipmentController::class);
+
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::patch('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
     Route::get('/requests', [RequestController::class, 'index'])->name('requests.index');
 
@@ -50,6 +48,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
  * de sus propias solicitudes.
  */
 Route::middleware(['auth', 'role:solicitante'])->group(function () {
+    Route::get('/my-equipments', [EquipmentController::class, 'myEquipments'])->name('equipments.mine');
+
     Route::get('/requests/mine', [RequestController::class, 'myRequests'])->name('requests.mine');
     Route::get('/requests/create', [RequestController::class, 'create'])->name('requests.create');
     Route::post('/requests', [RequestController::class, 'store'])->name('requests.store');
@@ -73,9 +73,6 @@ Route::middleware('auth')->group(function () {
     );
     Route::patch('/profile', [ProfileController::class, 'update'])->name(
         'profile.update',
-    );
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name(
-        'profile.destroy',
     );
 });
 

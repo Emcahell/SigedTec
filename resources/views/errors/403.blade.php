@@ -15,14 +15,12 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-b from-slate-800 to-slate-600 px-6">
+        <div class="min-h-screen flex flex-col justify-center items-center bg-blue-900 px-6">
             <div class="w-full max-w-md bg-white shadow-xl rounded-lg overflow-hidden text-center">
                 <div class="bg-red-600 px-6 py-8 text-white">
                     <div class="flex justify-center">
                         <div class="h-16 w-16 rounded-full bg-white/20 flex items-center justify-center">
-                            <svg class="h-9 w-9" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
-                            </svg>
+                            <x-icon-lock class="h-9 w-9" />
                         </div>
                     </div>
                     <p class="mt-4 text-sm uppercase tracking-widest text-red-100">Error 403</p>

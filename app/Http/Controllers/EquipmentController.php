@@ -7,6 +7,7 @@ use App\Http\Requests\StoreEquipmentRequest;
 use App\Http\Requests\UpdateEquipmentRequest;
 use App\Models\Category;
 use App\Models\Equipment;
+use App\Models\RequestItem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -92,6 +93,21 @@ class EquipmentController extends Controller
         return redirect()
             ->route('equipments.index')
             ->with('success', 'El equipo fue actualizado correctamente.');
+    }
+
+    /**
+     * List the equipment assigned to the requester through their requests.
+     */
+    public function myEquipments(Request $request): View
+    {
+        $asignaciones = RequestItem::with(['request', 'equipment.category'])
+            ->whereHas('request', fn ($query) => $query->where('user_id', $request->user()->id))
+            ->latest('assigned_at')
+            ->paginate(15);
+
+        return view('equipments.mine', [
+            'asignaciones' => $asignaciones,
+        ]);
     }
 
     /**

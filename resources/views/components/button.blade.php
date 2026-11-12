@@ -8,12 +8,12 @@
 
 @php
 $variants = [
-    'primary'   => 'bg-indigo-600 border-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500',
-    'secondary' => 'bg-white border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-indigo-500',
+    'primary'   => 'bg-blue-700 border-blue-700 text-white hover:bg-blue-800 focus:ring-blue-500',
+    'secondary' => 'bg-white border-blue-200 text-blue-700 hover:bg-blue-50 focus:ring-blue-500',
     'danger'    => 'bg-red-600 border-red-600 text-white hover:bg-red-700 focus:ring-red-500',
     'success'   => 'bg-green-600 border-green-600 text-white hover:bg-green-700 focus:ring-green-500',
-    'outline'   => 'bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-indigo-500',
-    'ghost'     => 'bg-transparent border-transparent text-gray-700 hover:bg-gray-100 focus:ring-indigo-500',
+    'outline'   => 'bg-transparent border-blue-200 text-blue-700 hover:bg-blue-50 focus:ring-blue-500',
+    'ghost'     => 'bg-transparent border-transparent text-blue-700 hover:bg-blue-50 focus:ring-blue-500',
 ];
 
 $sizes = [
@@ -30,7 +30,7 @@ $sizeClass = $sizes[$size] ?? $sizes['md'];
     {{ $attributes->merge([
         'type' => $type,
         'disabled' => $disabled || $loading,
-        'class' => 'inline-flex items-center justify-center rounded-md font-semibold text-xs uppercase tracking-widest shadow-sm transition ease-in-out duration-150 disabled:opacity-25 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-offset-2 ' . $variantClass . ' ' . $sizeClass,
+        'class' => 'inline-flex items-center justify-center gap-1.5 rounded-md font-semibold text-xs uppercase tracking-widest shadow-sm transition ease-in-out duration-150 disabled:opacity-25 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-offset-2 ' . $variantClass . ' ' . $sizeClass,
     ]) }}
 >
     @if ($loading)

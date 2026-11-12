@@ -1,11 +1,14 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+    <div class="mb-4 flex items-start gap-2 text-sm text-gray-600">
+        <x-icon-envelope class="text-blue-600" />
+        <p>
+            {{ __('Gracias por registrarse. Antes de comenzar, verifique su correo electrónico haciendo clic en el enlace que le enviamos. Si no lo recibió, podemos enviarle uno nuevo.') }}
+        </p>
     </div>
 
     @if (session('status') == 'verification-link-sent')
         <div class="mb-4 font-medium text-sm text-green-600">
-            {{ __('A new verification link has been sent to the email address you provided during registration.') }}
+            {{ __('Se envió un nuevo enlace de verificación al correo electrónico proporcionado.') }}
         </div>
     @endif
 
@@ -14,8 +17,9 @@
             @csrf
 
             <div>
-                <x-primary-button>
-                    {{ __('Resend Verification Email') }}
+                <x-primary-button class="inline-flex items-center gap-1.5">
+                    <x-icon-envelope />
+                    {{ __('Reenviar correo de verificación') }}
                 </x-primary-button>
             </div>
         </form>
@@ -23,8 +27,9 @@
         <form method="POST" action="{{ route('logout') }}">
             @csrf
 
-            <button type="submit" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                {{ __('Log Out') }}
+            <button type="submit" class="inline-flex items-center gap-1.5 underline text-sm text-red-600 hover:text-red-800 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                <x-icon-logout class="text-red-600" />
+                {{ __('Cerrar sesión') }}
             </button>
         </form>
     </div>

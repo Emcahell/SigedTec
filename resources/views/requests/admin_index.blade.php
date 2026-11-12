@@ -1,11 +1,13 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-blue-900 leading-tight">
+            <h2 class="font-semibold text-xl text-blue-900 leading-tight inline-flex items-center gap-2">
+                <x-icon-document class="text-blue-600" />
                 {{ __('Solicitudes de equipos') }}
             </h2>
 
-            <p class="text-sm text-blue-700">
+            <p class="inline-flex items-center gap-1.5 text-sm text-blue-700">
+                <x-icon-clock class="text-blue-500" />
                 {{ $pendientes }} {{ __('pendiente(s) de procesamiento') }}
             </p>
         </div>
@@ -46,7 +48,8 @@
 
                         <div class="flex items-center gap-3">
                             <button type="submit"
-                                    class="inline-flex items-center px-4 py-2 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                                    class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                                <x-icon-filter />
                                 {{ __('Filtrar') }}
                             </button>
 
@@ -99,7 +102,8 @@
                                     </x-table-cell>
                                     <x-table-cell class="text-right">
                                         <a href="{{ route('requests.show', $solicitud) }}"
-                                           class="text-sm text-blue-600 hover:text-blue-800 underline">
+                                           class="inline-flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800 underline">
+                                            <x-icon-eye />
                                             {{ $solicitud->isPending() ? __('Revisar') : __('Ver detalle') }}
                                         </a>
                                     </x-table-cell>

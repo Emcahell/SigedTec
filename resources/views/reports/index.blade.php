@@ -34,12 +34,14 @@
         <header class="bg-white shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between">
-                    <h2 class="font-semibold text-xl text-blue-900 leading-tight">
+                    <h2 class="font-semibold text-xl text-blue-900 leading-tight inline-flex items-center gap-2">
+                        <x-icon-chart-bar class="text-blue-600" />
                         {{ __('Reportes de asignaciones') }}
                     </h2>
                     <a href="{{ route('dashboard') }}"
-                       class="inline-flex items-center px-3 py-1.5 border border-blue-300 rounded-md font-semibold text-xs text-blue-700 uppercase tracking-widest hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
-                        {{ __('Volver al dashboard') }}
+                       class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-blue-300 rounded-md font-semibold text-xs text-blue-700 uppercase tracking-widest hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                        <x-icon-arrow-left />
+                        {{ __('Volver al panel') }}
                     </a>
                 </div>
             </div>
@@ -97,12 +99,14 @@
 
                         <div class="flex items-center gap-3">
                             <button type="submit"
-                                    class="inline-flex items-center px-4 py-2 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                                    class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                                <x-icon-filter />
                                 {{ __('Aplicar filtros') }}
                             </button>
 
                             <a href="{{ route('reports.index') }}"
-                               class="text-sm text-blue-600 hover:text-blue-800 underline">
+                               class="inline-flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800 underline">
+                                <x-icon-refresh />
                                 {{ __('Limpiar') }}
                             </a>
                         </div>
@@ -144,7 +148,8 @@
                                         <x-table-cell class="text-gray-500 text-sm">{{ $item->assigned_at?->format('d/m/Y H:i') }}</x-table-cell>
                                         <x-table-cell class="text-right">
                                             <a href="{{ route('requests.show', $item->request->id) }}"
-                                               class="text-xs text-blue-600 hover:text-blue-800 underline">
+                                               class="inline-flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-800 underline">
+                                                <x-icon-eye />
                                                 {{ __('Ver') }}
                                             </a>
                                         </x-table-cell>

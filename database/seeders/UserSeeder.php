@@ -9,26 +9,17 @@ use Illuminate\Support\Facades\Hash;
 class UserSeeder extends Seeder
 {
     /**
-     * Seed the accounts required to operate the system.
+     * Seed the administrator account required to operate the system.
+     * Requester accounts are created from the administration panel.
      */
     public function run(): void
     {
         User::firstOrCreate(
-            ['email' => 'soporte@institucion.gob.pe'],
+            ['email' => 'admin@sigedtec.com'],
             [
-                'name' => 'Soporte Técnico',
+                'name' => 'Administrador SIGEDTEC',
                 'password' => Hash::make('password'),
                 'role' => 'admin',
-                'email_verified_at' => now(),
-            ],
-        );
-
-        User::firstOrCreate(
-            ['email' => 'jefe.oficina@institucion.gob.pe'],
-            [
-                'name' => 'Jefe de Oficina',
-                'password' => Hash::make('password'),
-                'role' => 'solicitante',
                 'email_verified_at' => now(),
             ],
         );
