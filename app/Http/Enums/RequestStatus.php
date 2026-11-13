@@ -4,31 +4,25 @@ namespace App\Enums;
 
 enum RequestStatus: string
 {
-    case Pendiente = 'pendiente';
-    case Aprobada = 'aprobada';
-    case Rechazada = 'rechazada';
+    case Pendiente = "pendiente";
+    case Aprobada = "aprobada";
+    case Rechazada = "rechazada";
 
-    /**
-     * Human readable label for the request status.
-     */
     public function label(): string
     {
         return match ($this) {
-            self::Pendiente => 'Pendiente',
-            self::Aprobada => 'Aprobada',
-            self::Rechazada => 'Rechazada',
+            self::Pendiente => "Pendiente",
+            self::Aprobada => "Aprobada",
+            self::Rechazada => "Rechazada",
         };
     }
 
-    /**
-     * Plain text colour used to highlight the status (no badges).
-     */
     public function textClass(): string
     {
         return match ($this) {
-            self::Pendiente => 'text-blue-700',
-            self::Aprobada => 'text-green-700',
-            self::Rechazada => 'text-red-700',
+            self::Pendiente => "text-blue-700",
+            self::Aprobada => "text-green-700",
+            self::Rechazada => "text-red-700",
         };
     }
 

@@ -11,14 +11,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[Fillable([
-    'codigo_patrimonial',
-    'marca',
-    'modelo',
-    'cpu',
-    'ram',
-    'almacenamiento',
-    'estado',
-    'category_id',
+    "codigo_patrimonial",
+    "marca",
+    "modelo",
+    "cpu",
+    "ram",
+    "almacenamiento",
+    "estado",
+    "category_id",
 ])]
 class Equipment extends Model
 {
@@ -26,28 +26,21 @@ class Equipment extends Model
     use HasFactory, SoftDeletes;
 
     /**
-     * The table used by the model (Laravel would otherwise guess
-     * the uncountable "equipment").
-     *
      * @var string
      */
-    protected $table = 'equipments';
+    protected $table = "equipments";
 
     /**
-     * Get the attributes that should be cast.
-     *
      * @return array<string, string>
      */
     protected function casts(): array
     {
         return [
-            'estado' => EquipmentStatus::class,
+            "estado" => EquipmentStatus::class,
         ];
     }
 
     /**
-     * Category the equipment belongs to.
-     *
      * @return BelongsTo<Category, $this>
      */
     public function category(): BelongsTo

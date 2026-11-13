@@ -8,30 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-#[Fillable(['user_id', 'office', 'category_id', 'quantity', 'status', 'rejection_reason'])]
+#[Fillable([
+    "user_id",
+    "office",
+    "category_id",
+    "quantity",
+    "status",
+    "rejection_reason",
+])]
 class Request extends Model
 {
-    /**
-     * Request status constant for 'pending'.
-     */
-    public const PENDING_STATUS = 'pendiente';
+    public const PENDING_STATUS = "pendiente";
 
     /**
-     * Get the attributes that should be cast.
-     *
      * @return array<string, string>
      */
     protected function casts(): array
     {
         return [
-            'status' => RequestStatus::class,
-            'quantity' => 'integer',
+            "status" => RequestStatus::class,
+            "quantity" => "integer",
         ];
     }
 
     /**
-     * The requester (Jefe de Oficina) who created the request.
-     *
      * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
@@ -40,8 +40,6 @@ class Request extends Model
     }
 
     /**
-     * Category of equipment requested.
-     *
      * @return BelongsTo<Category, $this>
      */
     public function category(): BelongsTo
@@ -50,8 +48,6 @@ class Request extends Model
     }
 
     /**
-     * Equipment assigned to this request.
-     *
      * @return HasMany<RequestItem, $this>
      */
     public function items(): HasMany
@@ -59,9 +55,6 @@ class Request extends Model
         return $this->hasMany(RequestItem::class);
     }
 
-    /**
-     * Determine if the request is still waiting for approval.
-     */
     public function isPending(): bool
     {
         return $this->status === RequestStatus::Pendiente;

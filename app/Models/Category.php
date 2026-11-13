@@ -9,15 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-#[Fillable(['nombre', 'descripcion'])]
+#[Fillable(["nombre", "descripcion"])]
 class Category extends Model
 {
     /** @use HasFactory<CategoryFactory> */
     use HasFactory, SoftDeletes;
 
     /**
-     * Equipment belonging to this category.
-     *
      * @return HasMany<Equipment, $this>
      */
     public function equipments(): HasMany
