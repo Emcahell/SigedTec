@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e
+
 echo "Running composer"
 composer install --no-dev --working-dir=/var/www/html
 
