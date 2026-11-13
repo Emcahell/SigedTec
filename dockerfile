@@ -1,4 +1,4 @@
-FROM richarvey/nginx-php-fpm:latest
+FROM fflo/nginx-php-fpm:latest
 
 COPY . /var/www/html
 
