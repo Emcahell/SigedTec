@@ -1,5 +1,7 @@
 FROM richarvey/nginx-php-fpm:latest
 
+COPY . .
+
 ENV SKIP_COMPOSER 1
 ENV WEBROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
