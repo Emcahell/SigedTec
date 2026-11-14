@@ -1,14 +1,19 @@
 FROM fflo/nginx-php-fpm:latest
 
-# Instalar Node.js para compilar assets
-RUN apt-get update && apt-get install -y nodejs npm
-
-# Compilar assets
-RUN npm install && npm run build
-
-COPY . /var/www/html
+# Instalar Node.js y npm usando apk (gestor de Alpine)
+RUN apk add --no-cache nodejs npm
 
 WORKDIR /var/www/html
+
+# Copiar archivos necesarios para instalar dependencias primero (mejor caché)
+COPY package*.json ./
+RUN npm install
+
+# Copiar el resto del código
+COPY . .
+
+# Compilar assets
+RUN npm run build
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
