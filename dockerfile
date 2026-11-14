@@ -10,11 +10,14 @@ RUN npm run build
 FROM fflo/nginx-php-fpm:latest
 WORKDIR /var/www/html
 
-# Copiar el código (sin assets, sin vendor, sin node_modules)
+# Copiar el código fuente (sin node_modules, sin vendor)
 COPY . /var/www/html
 
-# Copiar los assets ya compilados desde la etapa de build
+# Copiar los assets ya compilados desde la etapa de build (incluye manifest.json)
 COPY --from=build /app/public/build /var/www/html/public/build
+
+# Verificar que el manifest.json existe
+RUN ls -la /var/www/html/public/build/manifest.json
 
 # Dar permisos de ejecución al script de entrada
 RUN chmod +x /var/www/html/scripts/entrypoint.sh
