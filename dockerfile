@@ -14,6 +14,9 @@ WORKDIR /var/www/html
 COPY . /var/www/html
 COPY --from=build /app/public/build /var/www/html/public/build
 
+# Dar permisos de ejecución al script de entrada
+RUN chmod +x /var/www/html/scripts/entrypoint.sh
+
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # Instalar dependencias de PHP
@@ -29,4 +32,4 @@ ENV APP_ENV production
 ENV APP_DEBUG false
 ENV LOG_CHANNEL stderr
 
-CMD ["/start.sh"]
+CMD ["/var/www/html/scripts/entrypoint.sh"]
