@@ -1,23 +1,23 @@
-FROM fflo/nginx-php-fpm:latest
-
-# Instalar Node.js y npm usando apk (gestor de Alpine)
-RUN apk add --no-cache nodejs npm
-
-WORKDIR /var/www/html
-
-# Copiar archivos necesarios para instalar dependencias primero (mejor caché)
+# Etapa 1: Compilar assets
+FROM node:20-alpine AS build
+WORKDIR /app
 COPY package*.json ./
 RUN npm install
-
-# Copiar el resto del código
 COPY . .
-
-# Compilar assets
 RUN npm run build
+
+# Etapa 2: Imagen final de PHP
+FROM fflo/nginx-php-fpm:latest
+WORKDIR /var/www/html
+
+# Copiar el código y los assets ya compilados
+COPY . /var/www/html
+COPY --from=build /app/public/build /var/www/html/public/build
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-RUN composer install --no-dev --no-interaction --optimize-autoloader --working-dir=/var/www/html
+# Instalar dependencias de PHP
+RUN composer install --no-dev --no-interaction --optimize-autoloader
 
 ENV WEBROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
