@@ -3,6 +3,10 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
+// Evitar que las deprecaciones de PHP 8.4 (p. ej. tempnam() en Filesystem::replace)
+// se conviertan en ErrorException por el manejador de errores de Laravel.
+error_reporting(E_ALL & ~E_DEPRECATED);
+
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...
