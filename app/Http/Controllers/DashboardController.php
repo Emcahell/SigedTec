@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Enums\EquipmentStatus;
-use App\Models\Category;
 use App\Models\Equipment;
 use App\Models\Request as EquipmentRequest;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -30,7 +29,7 @@ class DashboardController extends Controller
     /**
      * Get equipment status counts as JSON for chart rendering.
      */
-    public function statsJson(): \Illuminate\Http\JsonResponse
+    public function statsJson(): JsonResponse
     {
         $stats = [
             'disponibles' => Equipment::where('estado', EquipmentStatus::Disponible->value)->count(),

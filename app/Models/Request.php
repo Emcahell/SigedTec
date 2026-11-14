@@ -9,16 +9,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
-    "user_id",
-    "office",
-    "category_id",
-    "quantity",
-    "status",
-    "rejection_reason",
+    'user_id',
+    'office',
+    'category_id',
+    'quantity',
+    'status',
+    'rejection_reason',
 ])]
 class Request extends Model
 {
-    public const PENDING_STATUS = "pendiente";
+    public const PENDING_STATUS = 'pendiente';
 
     /**
      * @return array<string, string>
@@ -26,8 +26,8 @@ class Request extends Model
     protected function casts(): array
     {
         return [
-            "status" => RequestStatus::class,
-            "quantity" => "integer",
+            'status' => RequestStatus::class,
+            'quantity' => 'integer',
         ];
     }
 

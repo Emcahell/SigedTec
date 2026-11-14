@@ -11,24 +11,22 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
-                "nombre" => "Laptops",
-                "descripcion" =>
-                    "Equipos portátiles para trabajos de oficina y movilidad.",
+                'nombre' => 'Laptops',
+                'descripcion' => 'Equipos portátiles para trabajos de oficina y movilidad.',
             ],
             [
-                "nombre" => "Monitores",
-                "descripcion" =>
-                    "Pantallas de visualización para puestos de trabajo.",
+                'nombre' => 'Monitores',
+                'descripcion' => 'Pantallas de visualización para puestos de trabajo.',
             ],
             [
-                "nombre" => "Impresoras",
-                "descripcion" => "Impresoras y equipos multifuncionales.",
+                'nombre' => 'Impresoras',
+                'descripcion' => 'Impresoras y equipos multifuncionales.',
             ],
         ];
 
         foreach ($categories as $category) {
             Category::firstOrCreate(
-                ["nombre" => $category["nombre"]],
+                ['nombre' => $category['nombre']],
                 $category,
             );
         }

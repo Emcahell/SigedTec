@@ -21,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Forzar HTTPS para todas las URLs generadas por Laravel (Render termina SSL)
-        URL::forceScheme("https");
+        URL::forceScheme('https');
     }
 }

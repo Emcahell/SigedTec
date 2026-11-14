@@ -19,13 +19,13 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nombre" => [
-                "required",
-                "string",
-                "max:100",
-                Rule::unique("categories", "nombre")->whereNull("deleted_at"),
+            'nombre' => [
+                'required',
+                'string',
+                'max:100',
+                Rule::unique('categories', 'nombre')->whereNull('deleted_at'),
             ],
-            "descripcion" => ["nullable", "string", "max:500"],
+            'descripcion' => ['nullable', 'string', 'max:500'],
         ];
     }
 
@@ -35,14 +35,12 @@ class StoreCategoryRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "nombre.required" => "El nombre de la categoría es obligatorio.",
-            "nombre.string" => "El nombre de la categoría debe ser un texto.",
-            "nombre.max" =>
-                "El nombre de la categoría no debe superar los 100 caracteres.",
-            "nombre.unique" => "Ya existe una categoría con ese nombre.",
-            "descripcion.string" => "La descripción debe ser un texto.",
-            "descripcion.max" =>
-                "La descripción no debe superar los 500 caracteres.",
+            'nombre.required' => 'El nombre de la categoría es obligatorio.',
+            'nombre.string' => 'El nombre de la categoría debe ser un texto.',
+            'nombre.max' => 'El nombre de la categoría no debe superar los 100 caracteres.',
+            'nombre.unique' => 'Ya existe una categoría con ese nombre.',
+            'descripcion.string' => 'La descripción debe ser un texto.',
+            'descripcion.max' => 'La descripción no debe superar los 500 caracteres.',
         ];
     }
 
@@ -52,8 +50,8 @@ class StoreCategoryRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            "nombre" => "nombre",
-            "descripcion" => "descripción",
+            'nombre' => 'nombre',
+            'descripcion' => 'descripción',
         ];
     }
 }

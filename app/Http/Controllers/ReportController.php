@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\EquipmentStatus;
 use App\Models\Category;
-use App\Models\Equipment;
-use App\Models\Request as EquipmentRequest;
 use App\Models\RequestItem;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

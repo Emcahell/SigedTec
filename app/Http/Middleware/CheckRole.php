@@ -22,14 +22,14 @@ class CheckRole
         if ($user === null) {
             abort(
                 Response::HTTP_FORBIDDEN,
-                "Debe iniciar sesión para acceder a este recurso.",
+                'Debe iniciar sesión para acceder a este recurso.',
             );
         }
 
-        if (!in_array($user->role?->value, $roles, true)) {
+        if (! in_array($user->role?->value, $roles, true)) {
             abort(
                 Response::HTTP_FORBIDDEN,
-                "No tiene permisos para acceder a este recurso. Su rol asignado no está autorizado.",
+                'No tiene permisos para acceder a este recurso. Su rol asignado no está autorizado.',
             );
         }
 

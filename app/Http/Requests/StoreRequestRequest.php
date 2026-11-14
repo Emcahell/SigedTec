@@ -19,13 +19,13 @@ class StoreRequestRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "office" => ["required", "string", "max:150"],
-            "category_id" => [
-                "required",
-                "integer",
-                Rule::exists("categories", "id")->whereNull("deleted_at"),
+            'office' => ['required', 'string', 'max:150'],
+            'category_id' => [
+                'required',
+                'integer',
+                Rule::exists('categories', 'id')->whereNull('deleted_at'),
             ],
-            "quantity" => ["required", "integer", "min:1", "max:50"],
+            'quantity' => ['required', 'integer', 'min:1', 'max:50'],
         ];
     }
 
@@ -35,15 +35,14 @@ class StoreRequestRequest extends FormRequest
     public function messages(): array
     {
         return [
-            "office.required" => "La oficina solicitante es obligatoria.",
-            "office.max" => "La oficina no debe superar los 150 caracteres.",
-            "category_id.required" => "La categoría es obligatoria.",
-            "category_id.exists" => "La categoría seleccionada no existe.",
-            "quantity.required" => "La cantidad es obligatoria.",
-            "quantity.integer" => "La cantidad debe ser un número entero.",
-            "quantity.min" => "La cantidad debe ser mayor que cero.",
-            "quantity.max" =>
-                "La cantidad no debe superar los 50 equipos por solicitud.",
+            'office.required' => 'La oficina solicitante es obligatoria.',
+            'office.max' => 'La oficina no debe superar los 150 caracteres.',
+            'category_id.required' => 'La categoría es obligatoria.',
+            'category_id.exists' => 'La categoría seleccionada no existe.',
+            'quantity.required' => 'La cantidad es obligatoria.',
+            'quantity.integer' => 'La cantidad debe ser un número entero.',
+            'quantity.min' => 'La cantidad debe ser mayor que cero.',
+            'quantity.max' => 'La cantidad no debe superar los 50 equipos por solicitud.',
         ];
     }
 
@@ -53,9 +52,9 @@ class StoreRequestRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            "office" => "oficina",
-            "category_id" => "categoría",
-            "quantity" => "cantidad",
+            'office' => 'oficina',
+            'category_id' => 'categoría',
+            'quantity' => 'cantidad',
         ];
     }
 }

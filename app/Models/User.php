@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(["name", "email", "password", "role"])]
-#[Hidden(["password", "remember_token"])]
+#[Fillable(['name', 'email', 'password', 'role'])]
+#[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
@@ -25,20 +25,20 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            "email_verified_at" => "datetime",
-            "password" => "hashed",
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
         ];
     }
 
     protected function role(): Attribute
     {
         return Attribute::make(
-            get: fn(mixed $value): ?UserRole => $value === null
+            get: fn (mixed $value): ?UserRole => $value === null
                 ? null
                 : UserRole::from(
                     is_scalar($value) ? (string) $value : $value->value,
                 ),
-            set: fn(mixed $value): string => $value instanceof UserRole
+            set: fn (mixed $value): string => $value instanceof UserRole
                 ? $value->value
                 : UserRole::from(strtolower(trim((string) $value)))->value,
         );

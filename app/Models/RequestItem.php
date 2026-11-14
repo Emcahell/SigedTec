@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(["request_id", "equipment_id", "assigned_at"])]
+#[Fillable(['request_id', 'equipment_id', 'assigned_at'])]
 class RequestItem extends Model
 {
     /**
@@ -15,7 +15,7 @@ class RequestItem extends Model
     protected function casts(): array
     {
         return [
-            "assigned_at" => "datetime",
+            'assigned_at' => 'datetime',
         ];
     }
 
