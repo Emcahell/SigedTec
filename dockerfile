@@ -1,5 +1,11 @@
 FROM fflo/nginx-php-fpm:latest
 
+# Instalar Node.js para compilar assets
+RUN apt-get update && apt-get install -y nodejs npm
+
+# Compilar assets
+RUN npm install && npm run build
+
 COPY . /var/www/html
 
 WORKDIR /var/www/html
