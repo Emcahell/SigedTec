@@ -27,7 +27,9 @@ if [ ! -f public/build/manifest.json ]; then
     if [ -n "$CSS_FILE" ] && [ -n "$JS_FILE" ]; then
         CSS_NAME=$(basename "$CSS_FILE")
         JS_NAME=$(basename "$JS_FILE")
-        echo "{\"resources/css/app.css\": {\"file\": \"assets/$CSS_NAME\"}, \"resources/js/app.js\": {\"file\": \"assets/$JS_NAME\"}}" > public/build/manifest.json
+        cat > public/build/manifest.json << EOF
+{"resources/css/app.css":{"file":"assets/$CSS_NAME","src":"resources/css/app.css"},"resources/js/app.js":{"file":"assets/$JS_NAME","src":"resources/js/app.js"}}
+EOF
         echo "Manifest de Vite generado correctamente"
     else
         echo "ADVERTENCIA: No se encontraron archivos CSS/JS en public/build/assets/"
