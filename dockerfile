@@ -13,8 +13,11 @@ WORKDIR /var/www/html
 # Copiar el código fuente (sin node_modules, sin vendor)
 COPY . /var/www/html
 
-# Copiar los assets ya compilados desde la etapa de build (incluye manifest.json si existe)
+# Copiar los assets ya compilados desde la etapa de build
 COPY --from=build /app/public/build /var/www/html/public/build
+
+# Copiar configuración de nginx personalizada
+COPY config/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Dar permisos de ejecución al script de entrada
 RUN chmod +x /var/www/html/scripts/entrypoint.sh
