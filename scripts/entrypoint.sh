@@ -35,6 +35,15 @@ else
     echo "ADVERTENCIA: No se encontraron archivos CSS/JS en public/build/assets/"
 fi
 
+# Copiar configuración de nginx para servir archivos estáticos
+echo "Configurando nginx para archivos estáticos..."
+if [ -f config/nginx/default.conf ]; then
+    cp config/nginx/default.conf /etc/nginx/conf.d/default.conf
+    echo "Configuración de nginx copiada"
+else
+    echo "ADVERTENCIA: No se encontró config/nginx/default.conf"
+fi
+
 # Crear caché de configuración y rutas
 echo "Creando caché de configuración..."
 php artisan config:cache
