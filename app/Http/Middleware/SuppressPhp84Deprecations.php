@@ -9,8 +9,19 @@ class SuppressPhp84Deprecations
 {
     public function handle(Request $request, Closure $next)
     {
-        error_reporting(E_ALL & ~E_DEPRECATED);
+        $previous = null;
+        $previous = set_error_handler(function ($errno, $errstr, $errfile, $errline) use (&$previous) {
+            if ($errno === E_DEPRECATED || $errno === E_USER_DEPRECATED) {
+                return true;
+            }
 
-        return $next($request);
+            return $previous($errno, $errstr, $errfile, $errline);
+        }, E_ALL);
+
+        try {
+            return $next($request);
+        } finally {
+            restore_error_handler();
+        }
     }
 }
