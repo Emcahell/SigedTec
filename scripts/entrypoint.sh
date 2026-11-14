@@ -19,6 +19,10 @@ php artisan view:clear 2>/dev/null || true
 echo "Ejecutando migraciones..."
 php artisan migrate --force --no-interaction
 
+# Ejecutar seeders (crear usuario admin si no existe)
+echo "Ejecutando seeders..."
+php artisan db:seed --force --no-interaction
+
 # Generar manifest de Vite (siempre, para asegurar que exista)
 echo "Generando manifest de Vite..."
 CSS_FILE=$(ls public/build/assets/*.css 2>/dev/null | head -1)
