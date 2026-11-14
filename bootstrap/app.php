@@ -7,7 +7,13 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 
 // Evitar que las deprecaciones de PHP 8.4 (p. ej. tempnam()) se conviertan en ErrorException
-error_reporting(E_ALL & ~E_DEPRECATED);
+set_error_handler(function ($errno, $errstr, $errfile, $errline) {
+    if ($errno === E_DEPRECATED || $errno === E_USER_DEPRECATED) {
+        return true;
+    }
+
+    return false;
+});
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
