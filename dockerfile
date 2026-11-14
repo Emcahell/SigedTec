@@ -19,10 +19,13 @@ COPY --from=build /app/public/build /var/www/html/public/build
 # Dar permisos de ejecución al script de entrada
 RUN chmod +x /var/www/html/scripts/entrypoint.sh
 
+# Crear directorios necesarios para evitar errores de caché
+RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache
+
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
-# Instalar dependencias de PHP
-RUN composer install --no-dev --no-interaction --optimize-autoloader
+# Instalar dependencias de PHP (sin scripts para evitar errores de artisan durante el build)
+RUN composer install --no-dev --no-interaction --optimize-autoloader --no-scripts
 
 ENV WEBROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
