@@ -98,44 +98,10 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
+    <!-- Responsive Settings Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            @if (Auth::user()->isAdmin())
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ __('Panel') }}
-                </x-responsive-nav-link>
-
-                <x-responsive-nav-link :href="route('equipments.index')" :active="request()->routeIs('equipments.*')">
-                    {{ __('Equipos') }}
-                </x-responsive-nav-link>
-
-                <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
-                    {{ __('Categorías') }}
-                </x-responsive-nav-link>
-
-                <x-responsive-nav-link :href="route('requests.index')" :active="request()->routeIs('requests.*')">
-                    {{ __('Solicitudes') }}
-                </x-responsive-nav-link>
-
-                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
-                    {{ __('Usuarios') }}
-                </x-responsive-nav-link>
-            @endif
-
-            @if (Auth::user()->isSolicitante())
-                <x-responsive-nav-link :href="route('requests.mine')" :active="request()->routeIs('requests.mine', 'requests.create', 'requests.show')">
-                    {{ __('Mis solicitudes') }}
-                </x-responsive-nav-link>
-
-                <x-responsive-nav-link :href="route('equipments.mine')" :active="request()->routeIs('equipments.mine')">
-                    {{ __('Mis equipos') }}
-                </x-responsive-nav-link>
-            @endif
-        </div>
-
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="py-3 border-t border-gray-200">
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
@@ -159,6 +125,53 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation (mobile) -->
+    <div
+        class="fixed inset-x-0 bottom-0 z-40 bg-white border-t border-blue-100 shadow-[0_-1px_3px_rgba(0,0,0,0.05)] sm:hidden"
+        style="padding-bottom: env(safe-area-inset-bottom);"
+    >
+        <div class="flex items-stretch">
+            @if (Auth::user()->isAdmin())
+                <x-bottom-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-icon-panel />
+                    <span class="truncate">{{ __('Panel') }}</span>
+                </x-bottom-nav-link>
+
+                <x-bottom-nav-link :href="route('equipments.index')" :active="request()->routeIs('equipments.*')">
+                    <x-icon-computer />
+                    <span class="truncate">{{ __('Equipos') }}</span>
+                </x-bottom-nav-link>
+
+                <x-bottom-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
+                    <x-icon-tag />
+                    <span class="truncate">{{ __('Categorías') }}</span>
+                </x-bottom-nav-link>
+
+                <x-bottom-nav-link :href="route('requests.index')" :active="request()->routeIs('requests.*')">
+                    <x-icon-document />
+                    <span class="truncate">{{ __('Solicitudes') }}</span>
+                </x-bottom-nav-link>
+
+                <x-bottom-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                    <x-icon-users />
+                    <span class="truncate">{{ __('Usuarios') }}</span>
+                </x-bottom-nav-link>
+            @endif
+
+            @if (Auth::user()->isSolicitante())
+                <x-bottom-nav-link :href="route('requests.mine')" :active="request()->routeIs('requests.mine', 'requests.create', 'requests.show')">
+                    <x-icon-document />
+                    <span class="truncate">{{ __('Mis solicitudes') }}</span>
+                </x-bottom-nav-link>
+
+                <x-bottom-nav-link :href="route('equipments.mine')" :active="request()->routeIs('equipments.mine')">
+                    <x-icon-computer />
+                    <span class="truncate">{{ __('Mis equipos') }}</span>
+                </x-bottom-nav-link>
+            @endif
         </div>
     </div>
 </nav>
