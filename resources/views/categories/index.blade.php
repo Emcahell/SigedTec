@@ -1,20 +1,20 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <h2 class="font-semibold text-xl text-blue-900 leading-tight inline-flex items-center gap-2">
                 <x-icon-tag class="text-blue-600" />
                 {{ __('Categorías') }}
             </h2>
 
             <a href="{{ route('categories.create') }}"
-               class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+               class="btn-responsive px-4 py-2.5 sm:py-2 min-h-[44px] sm:min-h-0 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
                 <x-icon-plus />
                 {{ __('Nueva categoría') }}
             </a>
         </div>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-6 sm:py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('success'))
                 <div class="mb-4">
@@ -25,7 +25,7 @@
             @endif
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
+                <div class="p-4 sm:p-6">
                     <x-table>
                         <x-slot name="header">
                             <x-table-head>
@@ -75,7 +75,7 @@
 
     @foreach ($categories as $category)
         <x-modal name="delete-category-{{ $category->id }}" max-width="md">
-            <div class="p-6">
+            <div class="p-5 sm:p-6">
                 <h2 class="text-lg font-semibold text-gray-900">
                     {{ __('Eliminar categoría') }}
                 </h2>
@@ -89,13 +89,13 @@
                     @csrf
                     @method('DELETE')
 
-                    <div class="flex justify-end gap-3">
-                        <x-button variant="secondary"
+                    <div class="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:gap-3">
+                        <x-button variant="secondary" class="w-full sm:w-auto"
                                   onclick="window.dispatchEvent(new CustomEvent('close-modal', { detail: 'delete-category-{{ $category->id }}' }))">
                             {{ __('Cancelar') }}
                         </x-button>
 
-                        <x-button variant="danger" type="submit">
+                        <x-button variant="danger" type="submit" class="w-full sm:w-auto">
                             {{ __('Sí, eliminar') }}
                         </x-button>
                     </div>

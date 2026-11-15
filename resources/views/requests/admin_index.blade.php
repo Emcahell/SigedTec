@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <h2 class="font-semibold text-xl text-blue-900 leading-tight inline-flex items-center gap-2">
                 <x-icon-document class="text-blue-600" />
                 {{ __('Solicitudes de equipos') }}
@@ -13,7 +13,7 @@
         </div>
     </x-slot>
 
-    <div class="py-10">
+    <div class="py-6 sm:py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('success'))
                 <div class="mb-4">
@@ -28,7 +28,7 @@
             @endif
 
             <div class="bg-white border border-blue-100 sm:rounded-lg">
-                <div class="p-6 border-b border-blue-100">
+                <div class="p-4 sm:p-6 border-b border-blue-100">
                     <form method="GET" action="{{ route('requests.index') }}"
                           class="flex flex-col gap-4 sm:flex-row sm:items-end">
                         <div class="sm:w-64">
@@ -36,7 +36,7 @@
                                 {{ __('Estado') }}
                             </label>
                             <select id="filtro-estado" name="estado"
-                                    class="block mt-1 w-full rounded-md border-blue-200 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
+                                    class="block mt-1 w-full rounded-md border-blue-200 text-base sm:text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
                                 <option value="" @selected($status === null)>{{ __('Todas') }}</option>
                                 @foreach ($estados as $valor => $etiqueta)
                                     <option value="{{ $valor }}" @selected($status?->value === $valor)>
@@ -46,9 +46,9 @@
                             </select>
                         </div>
 
-                        <div class="flex items-center gap-3">
+                        <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
                             <button type="submit"
-                                    class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                                    class="btn-responsive px-4 py-2.5 sm:py-2 min-h-[44px] sm:min-h-0 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
                                 <x-icon-filter />
                                 {{ __('Filtrar') }}
                             </button>
@@ -65,7 +65,7 @@
                     </form>
                 </div>
 
-                <div class="p-6">
+                <div class="p-4 sm:p-6">
                     @if ($solicitudes->isEmpty())
                         <div class="border border-dashed border-blue-200 rounded-md p-10 text-center">
                             <p class="text-sm text-blue-700">

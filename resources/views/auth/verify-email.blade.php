@@ -12,12 +12,12 @@
         </div>
     @endif
 
-    <div class="mt-4 flex items-center justify-between">
+    <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <form method="POST" action="{{ route('verification.send') }}">
             @csrf
 
             <div>
-                <x-primary-button class="inline-flex items-center gap-1.5">
+                <x-primary-button class="inline-flex w-full justify-center items-center gap-1.5 sm:w-auto">
                     <x-icon-envelope />
                     {{ __('Reenviar correo de verificación') }}
                 </x-primary-button>
@@ -27,7 +27,7 @@
         <form method="POST" action="{{ route('logout') }}">
             @csrf
 
-            <button type="submit" class="inline-flex items-center gap-1.5 underline text-sm text-red-600 hover:text-red-800 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            <button type="submit" class="inline-flex w-full justify-center items-center gap-1.5 underline text-sm text-red-600 hover:text-red-800 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:w-auto">
                 <x-icon-logout class="text-red-600" />
                 {{ __('Cerrar sesión') }}
             </button>

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-10">
+    <div class="py-6 sm:py-10">
         <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
             @if ($errors->any())
                 <div class="mb-4">
@@ -20,7 +20,7 @@
             @endif
 
             <div class="bg-white border border-blue-100 sm:rounded-lg">
-                <form method="POST" action="{{ route('requests.approve.store', $solicitud) }}" class="p-6">
+                <form method="POST" action="{{ route('requests.approve.store', $solicitud) }}" class="p-4 sm:p-6">
                     @csrf
 
                     <p class="text-sm text-gray-700">
@@ -60,14 +60,14 @@
                         </div>
                     @endif
 
-                    <div class="mt-6 flex items-center justify-end gap-4 pt-4 border-t border-blue-100">
+                    <div class="mt-6 flex flex-col-reverse gap-3 pt-3 border-t border-blue-100 sm:flex-row sm:items-center sm:justify-end sm:gap-4">
                         <a href="{{ route('requests.show', $solicitud) }}"
-                           class="text-sm text-blue-600 hover:text-blue-800 underline">
+                           class="text-center text-sm text-blue-600 hover:text-blue-800 underline">
                             {{ __('Cancelar') }}
                         </a>
 
                         <button type="submit" @disabled($equipos->isEmpty())
-                                class="inline-flex items-center px-4 py-2 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                                class="inline-flex w-full items-center justify-center px-4 py-2.5 sm:py-2 min-h-[44px] sm:min-h-0 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition disabled:opacity-50 disabled:cursor-not-allowed sm:w-auto">
                             {{ __('Confirmar aprobación') }}
                         </button>
                     </div>

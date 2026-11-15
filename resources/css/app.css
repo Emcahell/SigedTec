@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    /* CTAs de cabecera / filtros: ancho completo en móvil */
+    .btn-responsive {
+        @apply inline-flex w-full sm:w-auto items-center justify-center gap-1.5 min-h-[44px] sm:min-h-0;
+    }
+
+    /* Contenedor de scroll horizontal para tablas */
+    .table-scroll {
+        @apply w-full overflow-x-auto overscroll-x-contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table-scroll > table {
+        @apply min-w-[40rem];
+    }
+}

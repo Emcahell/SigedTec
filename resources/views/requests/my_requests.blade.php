@@ -1,20 +1,20 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <h2 class="font-semibold text-xl text-blue-900 leading-tight inline-flex items-center gap-2">
                 <x-icon-document class="text-blue-600" />
                 {{ __('Mis solicitudes') }}
             </h2>
 
             <a href="{{ route('requests.create') }}"
-               class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+               class="btn-responsive px-4 py-2.5 sm:py-2 min-h-[44px] sm:min-h-0 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
                 <x-icon-plus />
                 {{ __('Nueva solicitud') }}
             </a>
         </div>
     </x-slot>
 
-    <div class="py-10">
+    <div class="py-6 sm:py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('success'))
                 <div class="mb-4">
@@ -29,7 +29,7 @@
             @endif
 
             <div class="bg-white border border-blue-100 sm:rounded-lg">
-                <div class="p-6">
+                <div class="p-4 sm:p-6">
                     @if ($solicitudes->isEmpty())
                         <div class="border border-dashed border-blue-200 rounded-md p-10 text-center">
                             <p class="text-sm text-blue-700">

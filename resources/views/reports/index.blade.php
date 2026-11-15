@@ -32,14 +32,14 @@
 
         <!-- Header -->
         <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between">
+            <div class="max-w-7xl mx-auto py-4 sm:py-6 px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <h2 class="font-semibold text-xl text-blue-900 leading-tight inline-flex items-center gap-2">
                         <x-icon-chart-bar class="text-blue-600" />
                         {{ __('Reportes de asignaciones') }}
                     </h2>
                     <a href="{{ route('dashboard') }}"
-                       class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-blue-300 rounded-md font-semibold text-xs text-blue-700 uppercase tracking-widest hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                       class="inline-flex w-full sm:w-auto items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 border border-blue-300 rounded-md font-semibold text-xs text-blue-700 uppercase tracking-widest hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
                         <x-icon-arrow-left />
                         {{ __('Volver al panel') }}
                     </a>
@@ -47,19 +47,19 @@
             </div>
         </header>
 
-        <main class="py-12">
+        <main class="py-6 sm:py-12">
 
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 <!-- Filtros -->
-                <div class="bg-white border border-blue-100 rounded-md p-6 mb-8">
+                <div class="bg-white border border-blue-100 rounded-md p-4 sm:p-6 mb-6 sm:mb-8">
                     <form method="GET" action="{{ route('reports.index') }}" class="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-5">
                         <div>
                             <label for="categoria" class="block text-sm font-medium text-blue-900">
                                 {{ __('Categoría') }}
                             </label>
                             <select id="categoria" name="categoria"
-                                    class="block mt-1 w-full rounded-md border-blue-200 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
+                                    class="block mt-1 w-full rounded-md border-blue-200 text-base sm:text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
                                 <option value="">{{ __('Todas') }}</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" @selected(($filtros['categoria'] ?? '') === (string) $category->id)>
@@ -75,7 +75,7 @@
                             </label>
                             <input type="text" id="oficina" name="oficina"
                                    value="{{ old('oficina', $filtros['oficina'] ?? '') }}"
-                                   class="block mt-1 w-full rounded-md border-blue-200 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                                   class="block mt-1 w-full rounded-md border-blue-200 text-base sm:text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                                    placeholder="Ej. Oficina de Tesorería">
                         </div>
 
@@ -85,7 +85,7 @@
                             </label>
                             <input type="date" id="fecha_inicio" name="fecha_inicio"
                                    value="{{ old('fecha_inicio') }}"
-                                   class="block mt-1 w-full rounded-md border-blue-200 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
+                                   class="block mt-1 w-full rounded-md border-blue-200 text-base sm:text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
                         </div>
 
                         <div>
@@ -94,18 +94,18 @@
                             </label>
                             <input type="date" id="fecha_fin" name="fecha_fin"
                                    value="{{ old('fecha_fin') }}"
-                                   class="block mt-1 w-full rounded-md border-blue-200 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
+                                   class="block mt-1 w-full rounded-md border-blue-200 text-base sm:text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500">
                         </div>
 
-                        <div class="flex items-center gap-3">
+                        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
                             <button type="submit"
-                                    class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                                    class="inline-flex w-full sm:w-auto items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 min-h-[44px] sm:min-h-0 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
                                 <x-icon-filter />
                                 {{ __('Aplicar filtros') }}
                             </button>
 
                             <a href="{{ route('reports.index') }}"
-                               class="inline-flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-800 underline">
+                               class="inline-flex items-center justify-center gap-1.5 text-sm text-blue-600 hover:text-blue-800 underline">
                                 <x-icon-refresh />
                                 {{ __('Limpiar') }}
                             </a>
@@ -156,8 +156,10 @@
                                     </x-table-row>
                                 @endforeach
                             </x-table>
+                        </div>
 
-                            {{-- Paginación --}}
+                        {{-- Paginación --}}
+                        <div class="p-4">
                             {{ $asignaciones->links() }}
                         </div>
                     @endif

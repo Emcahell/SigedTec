@@ -22,13 +22,13 @@ $submitLabel = $submitLabel ?? 'Guardar';
     <x-input-error :messages="$errors->get('descripcion')" class="mt-2" />
 </div>
 
-<div class="flex items-center justify-end gap-4 mt-6">
-    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+<div class="flex flex-col-reverse gap-3 mt-6 sm:flex-row sm:items-center sm:justify-end sm:gap-4">
+    <a class="text-center underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
        href="{{ route('categories.index') }}">
         {{ __('Cancelar') }}
     </a>
 
-    <x-primary-button>
+    <x-primary-button class="w-full sm:w-auto">
         {{ $submitLabel }}
     </x-primary-button>
 </div>

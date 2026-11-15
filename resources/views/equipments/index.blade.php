@@ -1,20 +1,20 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <h2 class="font-semibold text-xl text-blue-900 leading-tight inline-flex items-center gap-2">
                 <x-icon-computer class="text-blue-600" />
                 {{ __('Equipos tecnológicos') }}
             </h2>
 
             <a href="{{ route('equipments.create') }}"
-               class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+               class="btn-responsive px-4 py-2.5 sm:py-2 min-h-[44px] sm:min-h-0 bg-blue-700 border border-blue-700 rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
                 <x-icon-plus />
                 {{ __('Nuevo equipo') }}
             </a>
         </div>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-6 sm:py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('success'))
                 <div class="mb-4">
@@ -26,7 +26,7 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <!-- Filtros -->
-                <div class="p-6 border-b border-gray-200">
+                <div class="p-4 sm:p-6 border-b border-gray-200">
                     <form method="GET" action="{{ route('equipments.index') }}" class="grid grid-cols-1 gap-4 sm:grid-cols-4 sm:items-end">
                         <div>
                             <x-input-label for="filtro-categoria" :value="__('Categoría')" />
@@ -54,14 +54,14 @@
                             </select>
                         </div>
 
-                        <div class="flex gap-2">
-                            <x-button variant="primary" type="submit">
+                        <div class="flex flex-col gap-2 sm:flex-row">
+                            <x-button variant="primary" type="submit" class="w-full sm:w-auto">
                                 <x-icon-filter />
                                 {{ __('Filtrar') }}
                             </x-button>
 
                             <a href="{{ route('equipments.index') }}"
-                               class="inline-flex items-center gap-1.5 px-4 py-2 border border-blue-200 rounded-md font-semibold text-xs uppercase tracking-widest text-blue-700 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                               class="btn-responsive px-4 py-2.5 sm:py-2 min-h-[44px] sm:min-h-0 border border-blue-200 rounded-md font-semibold text-xs uppercase tracking-widest text-blue-700 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
                                 <x-icon-refresh />
                                 {{ __('Limpiar') }}
                             </a>
@@ -73,7 +73,7 @@
                     </form>
                 </div>
 
-                <div class="p-6">
+                <div class="p-4 sm:p-6">
                     <x-table>
                         <x-slot name="header">
                             <x-table-head>
@@ -143,7 +143,7 @@
 
     @foreach ($equipments as $equipment)
         <x-modal name="delete-equipment-{{ $equipment->id }}" max-width="md">
-            <div class="p-6">
+            <div class="p-5 sm:p-6">
                 <h2 class="text-lg font-semibold text-gray-900">
                     {{ __('Eliminar equipo') }}
                 </h2>
@@ -158,13 +158,13 @@
                     @csrf
                     @method('DELETE')
 
-                    <div class="flex justify-end gap-3">
-                        <x-button variant="secondary"
+                    <div class="flex flex-col-reverse gap-2 sm:flex-row sm:justify-end sm:gap-3">
+                        <x-button variant="secondary" class="w-full sm:w-auto"
                                   onclick="window.dispatchEvent(new CustomEvent('close-modal', { detail: 'delete-equipment-{{ $equipment->id }}' }))">
                             {{ __('Cancelar') }}
                         </x-button>
 
-                        <x-button variant="danger" type="submit">
+                        <x-button variant="danger" type="submit" class="w-full sm:w-auto">
                             {{ __('Sí, eliminar') }}
                         </x-button>
                     </div>

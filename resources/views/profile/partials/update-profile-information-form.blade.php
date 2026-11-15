@@ -48,8 +48,8 @@
             @endif
         </div>
 
-        <div class="flex items-center gap-4">
-            <x-primary-button class="inline-flex items-center gap-1.5">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <x-primary-button class="inline-flex w-full justify-center items-center gap-1.5 sm:w-auto">
                 <x-icon-check />
                 {{ __('Guardar') }}
             </x-primary-button>

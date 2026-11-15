@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <h2 class="font-semibold text-xl text-blue-900 leading-tight inline-flex items-center gap-2">
                 <x-icon-panel class="text-blue-600" />
                 {{ __('Panel') }}
             </h2>
-            <div class="flex items-center gap-3">
+            <div class="flex flex-wrap items-center gap-3">
                 <span class="inline-flex items-center gap-1.5 text-sm text-blue-600">
                     <x-icon-clock class="text-blue-500" />
                     {{ __('Solicitudes') }}:
@@ -15,7 +15,7 @@
                 </span>
 
                 <a href="{{ route('requests.index') }}"
-                   class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-blue-300 rounded-md font-semibold text-xs text-blue-700 uppercase tracking-widest hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
+                   class="inline-flex w-full items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 sm:w-auto border border-blue-300 rounded-md font-semibold text-xs text-blue-700 uppercase tracking-widest hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition">
                     <x-icon-eye class="text-blue-600" />
                     {{ __('Ver todas') }}
                 </a>
@@ -23,8 +23,8 @@
         </div>
     </x-slot>
 
-    <div class="py-10">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-6 sm:py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             {{-- Estadísticas --}}
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -80,7 +80,7 @@
                     <canvas id="equipmentStatusChart"></canvas>
                 </div>
 
-                <div class="mt-4 text-xs text-blue-500 flex gap-4">
+                <div class="mt-4 text-xs text-blue-500 flex flex-wrap gap-4">
                     <span class="flex items-center gap-1">
                         <span class="w-2 h-2 rounded-full bg-green-500"></span>
                         <span class="text-blue-700 text-xs">{{ __('Disponible') }}</span>

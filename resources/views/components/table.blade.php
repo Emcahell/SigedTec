@@ -23,7 +23,7 @@ if ($hover) {
 @endphp
 
 @if ($responsive)
-    <div class="overflow-x-auto">
+    <div class="table-scroll">
 @endif
 
 <table {{ $attributes->merge(['class' => $classes]) }}>
@@ -41,7 +41,7 @@ if ($hover) {
 @if (! empty($emptyMessage) && $slot === '')
     <tbody>
         <tr>
-            <td class="px-6 py-4 text-center text-gray-500">{{ $emptyMessage }}</td>
+            <td class="px-3 sm:px-6 py-4 text-center text-gray-500">{{ $emptyMessage }}</td>
         </tr>
     </tbody>
 @endif

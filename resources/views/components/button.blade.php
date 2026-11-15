@@ -30,7 +30,7 @@ $sizeClass = $sizes[$size] ?? $sizes['md'];
     {{ $attributes->merge([
         'type' => $type,
         'disabled' => $disabled || $loading,
-        'class' => 'inline-flex items-center justify-center gap-1.5 rounded-md font-semibold text-xs uppercase tracking-widest shadow-sm transition ease-in-out duration-150 disabled:opacity-25 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-offset-2 ' . $variantClass . ' ' . $sizeClass,
+        'class' => 'inline-flex items-center justify-center gap-1.5 min-h-[44px] sm:min-h-0 rounded-md font-semibold text-xs uppercase tracking-widest shadow-sm transition ease-in-out duration-150 disabled:opacity-25 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-offset-2 touch-manipulation ' . $variantClass . ' ' . $sizeClass,
     ]) }}
 >
     @if ($loading)
