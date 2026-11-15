@@ -22,19 +22,35 @@ COPY config/nginx/default.conf /etc/nginx/conf.d/default.conf
 # Dar permisos de ejecución al script de entrada
 RUN chmod +x /var/www/html/scripts/entrypoint.sh
 
-# Crear directorios necesarios para evitar errores de caché
-RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache
+# Directorios que PHP-FPM debe poder escribir (vistas Blade, sesiones, logs, caché).
+# Sin permisos de escritura, Laravel 13 + PHP 8.4 revienta con:
+# tempnam(): file created in the system's temporary directory
+RUN mkdir -p \
+        storage/app/public \
+        storage/framework/cache/data \
+        storage/framework/sessions \
+        storage/framework/views \
+        storage/framework/testing \
+        storage/logs \
+        bootstrap/cache \
+    && chmod -R 777 storage bootstrap/cache
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # Instalar dependencias de PHP (sin scripts para evitar errores de artisan durante el build)
-RUN composer install --no-dev --no-interaction --optimize-autoloader --no-scripts
+RUN composer install --no-dev --no-interaction --optimize-autoloader --no-scripts \
+    && chmod -R 777 storage bootstrap/cache
 
 ENV WEBROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
 ENV RUN_SCRIPTS 0
 ENV REAL_IP_HEADER 1
 ENV SKIP_COMPOSER 1
+
+# Evita que tempnam() caiga en un /tmp restringido si open_basedir está activo.
+ENV TMPDIR /var/www/html/storage/framework/cache
+ENV TMP /var/www/html/storage/framework/cache
+ENV TEMP /var/www/html/storage/framework/cache
 
 ENV APP_ENV production
 ENV APP_DEBUG false
