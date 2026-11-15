@@ -19,6 +19,11 @@ return [
             'path' => 'resources/svg',
             'prefix' => 'icon',
             'class' => 'w-5 h-5 shrink-0',
+            // Fallback si Tailwind purga w-5/h-5 en el build (p. ej. sin vendor/).
+            'attributes' => [
+                'width' => 20,
+                'height' => 20,
+            ],
         ],
 
         // 'default' => [
