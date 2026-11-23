@@ -20,7 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Forzar HTTPS para todas las URLs generadas por Laravel (Render termina SSL)
-        URL::forceScheme('https');
+        // Render termina SSL; en local se mantiene HTTP.
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
     }
 }
