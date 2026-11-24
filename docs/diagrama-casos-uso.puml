@@ -1,0 +1,108 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+
+title SIGEDTEC - Diagrama de Casos de Uso
+
+actor "Administrador\n(Soporte Técnico)" as Admin
+actor "Solicitante\n(Jefe de Oficina)" as Solicitante
+
+rectangle "SIGEDTEC" {
+
+  usecase "Iniciar sesión" as UC_Login
+  usecase "Cerrar sesión" as UC_Logout
+  usecase "Ver/editar perfil" as UC_Perfil
+  usecase "Actualizar contraseña" as UC_Password
+
+  usecase "Ver dashboard" as UC_Dashboard
+
+  usecase "Gestionar categorías" as UC_Categorias
+  usecase "Crear categoría" as UC_CatCrear
+  usecase "Editar categoría" as UC_CatEditar
+  usecase "Eliminar categoría" as UC_CatEliminar
+  usecase "Listar categorías" as UC_CatListar
+
+  usecase "Gestionar equipos" as UC_Equipos
+  usecase "Registrar equipo" as UC_EqCrear
+  usecase "Editar equipo" as UC_EqEditar
+  usecase "Eliminar equipo" as UC_EqEliminar
+  usecase "Consultar equipo" as UC_EqVer
+  usecase "Listar/filtrar equipos" as UC_EqListar
+
+  usecase "Gestionar usuarios solicitantes" as UC_Usuarios
+  usecase "Registrar solicitante" as UC_UserCrear
+  usecase "Editar solicitante" as UC_UserEditar
+  usecase "Eliminar solicitante" as UC_UserEliminar
+  usecase "Listar usuarios" as UC_UserListar
+
+  usecase "Gestionar solicitudes" as UC_GestionSolicitudes
+  usecase "Listar solicitudes" as UC_SolListar
+  usecase "Ver detalle de solicitud" as UC_SolVer
+  usecase "Aprobar solicitud" as UC_SolAprobar
+  usecase "Asignar equipos disponibles" as UC_AsignarEquipos
+  usecase "Rechazar solicitud" as UC_SolRechazar
+  usecase "Registrar motivo de rechazo" as UC_MotivoRechazo
+
+  usecase "Crear solicitud de equipos" as UC_SolCrear
+  usecase "Ver mis solicitudes" as UC_MisSolicitudes
+  usecase "Ver mis equipos asignados" as UC_MisEquipos
+}
+
+Admin --> UC_Login
+Admin --> UC_Logout
+Admin --> UC_Perfil
+Admin --> UC_Password
+Admin --> UC_Dashboard
+Admin --> UC_Categorias
+Admin --> UC_Equipos
+Admin --> UC_Usuarios
+Admin --> UC_GestionSolicitudes
+
+Solicitante --> UC_Login
+Solicitante --> UC_Logout
+Solicitante --> UC_Perfil
+Solicitante --> UC_Password
+Solicitante --> UC_SolCrear
+Solicitante --> UC_MisSolicitudes
+Solicitante --> UC_MisEquipos
+Solicitante --> UC_SolVer
+
+UC_Categorias ..> UC_CatListar : <<include>>
+UC_Categorias ..> UC_CatCrear : <<include>>
+UC_Categorias ..> UC_CatEditar : <<include>>
+UC_Categorias ..> UC_CatEliminar : <<include>>
+
+UC_Equipos ..> UC_EqListar : <<include>>
+UC_Equipos ..> UC_EqCrear : <<include>>
+UC_Equipos ..> UC_EqEditar : <<include>>
+UC_Equipos ..> UC_EqEliminar : <<include>>
+UC_Equipos ..> UC_EqVer : <<include>>
+
+UC_Usuarios ..> UC_UserListar : <<include>>
+UC_Usuarios ..> UC_UserCrear : <<include>>
+UC_Usuarios ..> UC_UserEditar : <<include>>
+UC_Usuarios ..> UC_UserEliminar : <<include>>
+
+UC_GestionSolicitudes ..> UC_SolListar : <<include>>
+UC_GestionSolicitudes ..> UC_SolVer : <<include>>
+UC_GestionSolicitudes ..> UC_SolAprobar : <<extend>>
+UC_GestionSolicitudes ..> UC_SolRechazar : <<extend>>
+
+UC_SolAprobar ..> UC_AsignarEquipos : <<include>>
+UC_SolRechazar ..> UC_MotivoRechazo : <<include>>
+
+note right of UC_SolVer
+  El solicitante solo puede ver
+  sus propias solicitudes.
+  El administrador puede ver todas.
+end note
+
+note bottom of UC_SolAprobar
+  La solicitud debe estar pendiente.
+  Los equipos seleccionados deben estar
+  disponibles y pertenecer a la categoría.
+end note
+
+@enduml

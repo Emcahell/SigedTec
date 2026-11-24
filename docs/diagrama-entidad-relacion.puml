@@ -1,0 +1,101 @@
+@startuml
+hide circle
+skinparam linetype ortho
+skinparam shadowing false
+
+title SIGEDTEC - Modelo Entidad Relación
+
+entity "users" as users {
+  *id : bigint <<PK>>
+  --
+  name : varchar
+  email : varchar <<unique>>
+  email_verified_at : timestamp?
+  password : varchar
+  role : enum(admin,solicitante)
+  remember_token : varchar?
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "categories" as categories {
+  *id : bigint <<PK>>
+  --
+  nombre : varchar
+  descripcion : text?
+  created_at : timestamp
+  updated_at : timestamp
+  deleted_at : timestamp?
+}
+
+entity "equipments" as equipments {
+  *id : bigint <<PK>>
+  --
+  codigo_patrimonial : varchar <<unique>>
+  marca : varchar
+  modelo : varchar
+  cpu : varchar?
+  ram : varchar?
+  almacenamiento : varchar?
+  estado : enum(disponible,asignado,mantenimiento)
+  category_id : bigint <<FK>>
+  created_at : timestamp
+  updated_at : timestamp
+  deleted_at : timestamp?
+}
+
+entity "requests" as requests {
+  *id : bigint <<PK>>
+  --
+  user_id : bigint <<FK>>
+  office : varchar
+  category_id : bigint <<FK>>
+  quantity : unsigned int
+  status : enum(pendiente,aprobada,rechazada)
+  rejection_reason : text?
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+entity "request_items" as request_items {
+  *id : bigint <<PK>>
+  --
+  request_id : bigint <<FK>>
+  equipment_id : bigint <<FK>>
+  assigned_at : timestamp?
+  created_at : timestamp
+  updated_at : timestamp
+}
+
+users ||--o{ requests : "realiza"
+categories ||--o{ equipments : "clasifica"
+categories ||--o{ requests : "solicitada en"
+requests ||--o{ request_items : "contiene"
+equipments ||--o{ request_items : "asignado como"
+
+note right of equipments
+  estado:
+  - disponible
+  - asignado
+  - mantenimiento
+
+  deleted_at: soft delete
+end note
+
+note right of requests
+  status:
+  - pendiente
+  - aprobada
+  - rechazada
+
+  rejection_reason solo aplica
+  cuando status = rechazada
+end note
+
+note bottom of request_items
+  Se crea al aprobar una solicitud.
+  Representa la asignación concreta
+  de un equipo a una solicitud.
+end note
+
+@enduml
