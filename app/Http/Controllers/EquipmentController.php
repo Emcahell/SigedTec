@@ -24,7 +24,7 @@ class EquipmentController extends Controller
         $estado = EquipmentStatus::tryFrom($request->input('estado'));
         $categoria = $request->filled('categoria') ? $request->integer('categoria') : null;
 
-        $equipments = Equipment::with('category')
+        $equipments = Equipment::query()->with('category')
             ->when($categoria !== null, fn ($query) => $query->where('category_id', $categoria))
             ->when($estado !== null, fn ($query) => $query->where('estado', $estado->value))
             ->orderBy('codigo_patrimonial')
@@ -32,7 +32,7 @@ class EquipmentController extends Controller
 
         return view('equipments.index', [
             'equipments' => $equipments,
-            'categories' => Category::orderBy('nombre')->get(),
+            'categories' => Category::query()->orderBy('nombre')->get(),
             'estados' => EquipmentStatus::options(),
             'filtros' => $filtros,
         ]);
@@ -44,7 +44,7 @@ class EquipmentController extends Controller
     public function create(): View
     {
         return view('equipments.create', [
-            'categories' => Category::orderBy('nombre')->get(),
+            'categories' => Category::query()->orderBy('nombre')->get(),
             'estados' => EquipmentStatus::options(),
         ]);
     }
@@ -54,7 +54,7 @@ class EquipmentController extends Controller
      */
     public function store(StoreEquipmentRequest $request): RedirectResponse
     {
-        Equipment::create($request->validated());
+        Equipment::query()->create($request->validated());
 
         return redirect()
             ->route('equipments.index')
@@ -78,7 +78,7 @@ class EquipmentController extends Controller
     {
         return view('equipments.edit', [
             'equipment' => $equipment,
-            'categories' => Category::orderBy('nombre')->get(),
+            'categories' => Category::query()->orderBy('nombre')->get(),
             'estados' => EquipmentStatus::options(),
         ]);
     }
@@ -100,7 +100,7 @@ class EquipmentController extends Controller
      */
     public function myEquipments(Request $request): View
     {
-        $asignaciones = RequestItem::with(['request', 'equipment.category'])
+        $asignaciones = RequestItem::query()->with(['request', 'equipment.category'])
             ->whereHas('request', fn ($query) => $query->where('user_id', $request->user()->id))
             ->latest('assigned_at')
             ->paginate(15);

@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index(): View
     {
         return view('categories.index', [
-            'categories' => Category::orderBy('nombre')->get(),
+            'categories' => Category::query()->orderBy('nombre')->get(),
         ]);
     }
 
@@ -33,7 +33,7 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request): RedirectResponse
     {
-        Category::create($request->validated());
+        Category::query()->create($request->validated());
 
         return redirect()
             ->route('categories.index')

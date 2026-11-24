@@ -16,11 +16,11 @@ class DashboardController extends Controller
     public function index(): View
     {
         $stats = [
-            'disponibles' => Equipment::where('estado', EquipmentStatus::Disponible->value)->count(),
-            'asignados' => Equipment::where('estado', EquipmentStatus::Asignado->value)->count(),
-            'mantenimiento' => Equipment::where('estado', EquipmentStatus::Mantenimiento->value)->count(),
-            'total' => Equipment::count(),
-            'solicitudes_pendientes' => EquipmentRequest::where('status', EquipmentRequest::PENDING_STATUS)->count(),
+            'disponibles' => Equipment::query()->where('estado', EquipmentStatus::Disponible->value)->count(),
+            'asignados' => Equipment::query()->where('estado', EquipmentStatus::Asignado->value)->count(),
+            'mantenimiento' => Equipment::query()->where('estado', EquipmentStatus::Mantenimiento->value)->count(),
+            'total' => Equipment::query()->count(),
+            'solicitudes_pendientes' => EquipmentRequest::query()->where('status', EquipmentRequest::PENDING_STATUS)->count(),
         ];
 
         return view('dashboard', $stats);
@@ -32,9 +32,9 @@ class DashboardController extends Controller
     public function statsJson(): JsonResponse
     {
         $stats = [
-            'disponibles' => Equipment::where('estado', EquipmentStatus::Disponible->value)->count(),
-            'asignados' => Equipment::where('estado', EquipmentStatus::Asignado->value)->count(),
-            'mantenimiento' => Equipment::where('estado', EquipmentStatus::Mantenimiento->value)->count(),
+            'disponibles' => Equipment::query()->where('estado', EquipmentStatus::Disponible->value)->count(),
+            'asignados' => Equipment::query()->where('estado', EquipmentStatus::Asignado->value)->count(),
+            'mantenimiento' => Equipment::query()->where('estado', EquipmentStatus::Mantenimiento->value)->count(),
         ];
 
         return $this->json($stats);

@@ -10,6 +10,7 @@ use App\Models\Equipment;
 use App\Models\Request as EquipmentRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -29,7 +30,7 @@ class RequestController extends Controller
         $status =
             $filtro === '' ? null : RequestStatus::tryFrom((string) $filtro);
 
-        $solicitudes = EquipmentRequest::with([
+        $solicitudes = EquipmentRequest::query()->with([
             'user',
             'category',
             'items.equipment',
@@ -45,7 +46,7 @@ class RequestController extends Controller
             'solicitudes' => $solicitudes,
             'status' => $status,
             'estados' => RequestStatus::options(),
-            'pendientes' => EquipmentRequest::where(
+            'pendientes' => EquipmentRequest::query()->where(
                 'status',
                 RequestStatus::Pendiente->value,
             )->count(),
@@ -58,7 +59,7 @@ class RequestController extends Controller
     public function create(): View
     {
         return view('requests.create', [
-            'categories' => Category::withCount([
+            'categories' => Category::query()->withCount([
                 'equipments as disponibles_count' => fn (
                     $query,
                 ) => $query->where(
@@ -76,7 +77,7 @@ class RequestController extends Controller
      */
     public function store(StoreRequestRequest $request): RedirectResponse
     {
-        $solicitud = EquipmentRequest::create([
+        $solicitud = EquipmentRequest::query()->create([
             ...$request->validated(),
             'user_id' => $request->user()->id,
             'status' => RequestStatus::Pendiente->value,
@@ -95,8 +96,8 @@ class RequestController extends Controller
      */
     public function myRequests(): View
     {
-        $solicitudes = EquipmentRequest::with(['category', 'items.equipment'])
-            ->where('user_id', auth()->id())
+        $solicitudes = EquipmentRequest::query()->with(['category', 'items.equipment'])
+            ->where('user_id', Auth::id())
             ->latest()
             ->get();
 
@@ -111,7 +112,7 @@ class RequestController extends Controller
      */
     public function show(EquipmentRequest $solicitud): View
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         if ($user->isSolicitante() && $solicitud->user_id !== $user->id) {
             abort(403, 'No tiene permisos para consultar esta solicitud.');
@@ -122,7 +123,7 @@ class RequestController extends Controller
         if ($user->isAdmin()) {
             return view('requests.admin_show', [
                 'solicitud' => $solicitud,
-                'disponibles' => Equipment::where(
+                'disponibles' => Equipment::query()->where(
                     'category_id',
                     $solicitud->category_id,
                 )
@@ -155,7 +156,7 @@ class RequestController extends Controller
 
         return view('requests.approve', [
             'solicitud' => $solicitud,
-            'equipos' => Equipment::where(
+            'equipos' => Equipment::query()->where(
                 'category_id',
                 $solicitud->category_id,
             )
@@ -202,7 +203,7 @@ class RequestController extends Controller
                 ]);
             }
 
-            $equipos = Equipment::whereIn('id', $equipmentIds)
+            $equipos = Equipment::query()->whereIn('id', $equipmentIds)
                 ->where('category_id', $locked->category_id)
                 ->where('estado', EquipmentStatus::Disponible->value)
                 ->lockForUpdate()

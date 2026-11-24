@@ -16,7 +16,7 @@ class ReportController extends Controller
     {
         $filtros = $request->only(['oficina', 'categoria', 'fecha_inicio', 'fecha_fin']);
 
-        $query = RequestItem::with(['request.user', 'request.category', 'equipment.category']);
+        $query = RequestItem::query()->with(['request.user', 'request.category', 'equipment.category']);
 
         // Filtro por oficina
         if ($request->filled('oficina')) {
@@ -38,7 +38,7 @@ class ReportController extends Controller
 
         $asignaciones = $query->latest()->paginate(20);
 
-        $categories = Category::orderBy('nombre')->get();
+        $categories = Category::query()->orderBy('nombre')->get();
 
         return view('reports.index', [
             'asignaciones' => $asignaciones,

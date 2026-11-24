@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index(): View
     {
         return view('users.index', [
-            'users' => User::orderBy('role')->orderBy('name')->get(),
+            'users' => User::query()->orderBy('role')->orderBy('name')->get(),
         ]);
     }
 
@@ -38,7 +38,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request): RedirectResponse
     {
-        $user = User::create([
+        $user = User::query()->create([
             ...$request->validated(),
             'role' => UserRole::Solicitante->value,
         ]);
@@ -99,7 +99,7 @@ class UserController extends Controller
                 ->whereHas('request', fn ($query) => $query->where('user_id', $user->id))
                 ->pluck('equipment_id');
 
-            Equipment::whereIn('id', $equipmentIds)
+            Equipment::query()->whereIn('id', $equipmentIds)
                 ->update(['estado' => EquipmentStatus::Disponible->value]);
 
             $user->delete();
